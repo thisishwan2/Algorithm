@@ -1,6 +1,6 @@
 
 v=int(input())
-'''vote=input()
+vote=input()
 
 vote_list=list(vote)
 a_count=vote_list.count("A")
@@ -10,9 +10,10 @@ if a_count>b_count:
 elif a_count<b_count:
     print("B")
 else:
-    print("Tie")'''
+    print("Tie")
 
 
+'''
 vote=list(str(input()))
 A=0
 B=0
@@ -27,4 +28,4 @@ elif A==B:
     print("Tie")
 else:
     print("B")
-
+'''
