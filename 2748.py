@@ -1,7 +1,5 @@
 #생각보다 쉬웠지만 핵심 수학공식
 #맞는데 런타임에러 난 풀이
-from unittest import result
-
 
 n=int(input())
 f=[0,1]
