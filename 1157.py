@@ -8,6 +8,6 @@ if cnt_list.count(max(cnt_list))>1: #중복횟수가 1이상 즉, 중복횟수�
     print("?")
 else:
     index=cnt_list.index(max(cnt_list)) #최대 중복횟수의 인덱스를 얻는다
-    print(set[index])
+    print(list[index])
     #갯수 리스트 인덱스 = set 인덱스
     
