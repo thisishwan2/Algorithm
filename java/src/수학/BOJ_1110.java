@@ -28,7 +28,7 @@ public class BOJ_1110 {
         }
 
     }
-    public void sec() throws IOException {
+    public void sec_sol() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
