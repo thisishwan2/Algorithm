@@ -1,4 +1,4 @@
-package 기본.구현;
+package 구현;
 
 import java.io.BufferedReader;
 import java.io.IOException;
