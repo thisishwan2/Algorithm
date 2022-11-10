@@ -1,25 +1,12 @@
 import sys
 
-a=sys.stdin.readline()
+a=sys.stdin.readline().rstrip().split("-")
 
 res=0
-if "-" in a:
-    a=a.rstrip().split("-")
-    for i in a:
-        if "+" in i and res==0:
-            num=i.split("+")
-            res=sum(map(int,num))
-        elif "+" in i:
-            num=i.split("+")
-            res-=sum(map(int,num))
-        elif res==0:
-            num=int(i)
-            res=res+num
-        else:
-            num=int(i)
-            res-=num
-else:
-    a=map(int, a.rstrip().split("+"))
-    res=sum(a)
-print(res)
 
+for i in a[0].split("+"):
+    res+=int(i)
+for i in a[1:]:
+    for j in i.split("+"):
+        res-=int(j)
+print(res)
