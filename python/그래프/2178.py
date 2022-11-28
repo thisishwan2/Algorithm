@@ -30,5 +30,6 @@ def bfs(x, y):
                 q.append((nx,ny))
                 graph[nx][ny]=graph[x][y]+1
     
+    
     return graph[n-1][m-1]
 print(bfs(0,0))
