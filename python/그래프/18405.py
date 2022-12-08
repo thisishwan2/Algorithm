@@ -21,7 +21,7 @@ def bfs(data):
             if 0<=nx<n and 0<=ny<n:
                 if graph[nx][ny]==0:
                     graph[nx][ny]=virus
-                    q.append((virus, s+1, nx, ny))
+                    q.append((virus, s1+1, nx, ny))
             
 
 n,k = map(int, input().split())
