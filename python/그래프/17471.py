@@ -146,3 +146,62 @@ if min_ans==sys.maxsize:
     print(-1)
 else:
     print(min_ans)
+
+
+#최단 시간
+import sys
+input=sys.stdin.readline
+import itertools
+from collections import deque
+
+
+n=int(input())
+pp=list(map(int, input().split()))
+graph=[[]for _ in range(n)]
+
+for i in range(n):
+    info=list(map(int, input().split()))
+    for j in range(1, info[0]+1):
+        graph[i].append(info[j]-1)
+
+def bfs(seongeogu):
+    visited=[0 for _ in range(n)]
+    start=seongeogu[0]
+    q=deque()
+    q.append(start)
+    visited[start]=1
+    total=0
+
+    while q:
+        node=q.popleft()
+        total+=pp[node]
+        for i in graph[node]:
+            if visited[i]==0 and i in seongeogu:
+                q.append(i)
+                visited[i]=1
+    cnt=visited.count(1)
+    return total, cnt
+
+
+
+johab=[]
+for i in range(1,n//2+1):
+    a=range(n)
+    combis=itertools.combinations(a,i)
+    for combi in combis:
+        johab.append(combi)
+
+
+res=sys.maxsize
+
+for i in johab:
+    sum1, v1 = bfs(i)
+    sum2, v2 = bfs([j for j in range(n) if j not in i ])
+
+    if v1+v2==n:
+        res=min(res, abs(sum1-sum2))
+
+if res==sys.maxsize:
+    print(-1)
+else:
+    print(res)
