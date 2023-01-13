@@ -31,3 +31,16 @@ while num >= 0:
   
 else:
   print(-1)
+
+
+n=int(input())
+cnt=0
+
+while n>=3:
+    if n%5==0:
+        cnt+=n//5
+        break
+    n=n-3
+    cnt+=1
+
+print(-1 if n>0 and n<3 else cnt )
