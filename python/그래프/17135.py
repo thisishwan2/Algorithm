@@ -12,35 +12,41 @@ import copy
 from collections import deque
 
 
-# D거리 안에 가장 가까운 적을 찾는다.
+# d거리 안에 가장 가까운 적을 찾는다.
 def bfs(x,y,length):
     q=deque()
     q.append([x,y,length])
-    visited=[[0 for _ in range(m)] for _ in range(n+1)]
+    visited=[[0 for _ in range(m)] for _ in range(n+1)] #궁수의 위치까지 포함한 방문처리 리스트
     visited[x][y]=1
-    attack=[]
+    attack=[] # 공격 가능한 적의 (거리, y좌표, x좌표)를 담을 리스트
 
     while q:
         x,y,length=q.popleft()
 
+        # 그래프의 해당 위치에 적이 있고, 공격가능 거리안에 있을 때
         if temp[x][y]==1 and length<=d:
-            attack.append([length, y, x]) #정렬 조건에 따라
+            attack.append([length, y, x]) #정렬 조건에 따라 attack리스트에 추가
             continue
         
         for i in range(3):
             nx=x+dx[i]
             ny=y+dy[i]
             if 0<=nx<n and 0<=ny<m:
-                if visited[nx][ny]==0 and temp[nx][ny]>=0 and length<=d:
+                # 다음 장소가 방문하지 않았고, 공격 가능 거리안에 있을 떄
+                if visited[nx][ny]==0 and length<=d:
                     q.append([nx,ny,length+1])
                     visited[nx][ny]=1
+    
+    # 정렬해서 반환
     return sorted(attack)
 
 # 적이 아래로 한칸 씩 이동
 def graph_move():
+    #n번째 행은 궁수 행이므로 n-1행부터 1번 행까지
     for i in range(n-1, 0, -1):
         for j in range(m):
             temp[i][j]=temp[i-1][j]
+    # 맨 윗줄에 빈칸 추가
     for i in range(m):
         temp[0][i]=0
 
@@ -53,7 +59,7 @@ def is_empty():
                 return False
     return True
 
-# 조합 구현
+# 조합 구현(yield 활용)
 def combinations(array, r):
     for i in range(len(array)):
         if r==1:
@@ -79,7 +85,7 @@ items=[i for i in range(m)]
 result=0
 
 for a in combinations(items, 3):
-    temp = copy.deepcopy(graph)
+    temp = copy.deepcopy(graph) # 기존 그래프는 불변해야하므로, 깊은 복사
     count=0 #죽인 적 수
 
     while not is_empty():
@@ -87,9 +93,10 @@ for a in combinations(items, 3):
         for i in range(3):
             target_enemy=bfs(n,a[i],0)
             if len(target_enemy)!=0:
-                target_enemy=target_enemy[0]
+                target_enemy=target_enemy[0] # 가장 첫번째 인자를 뽑아옴(가장 가깝고, 왼쪽의 적)
                 position.append((target_enemy[2],target_enemy[1]))
         
+        #중복 제거
         position=list(set(position))
 
         for i in position:
