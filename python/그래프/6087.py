@@ -63,3 +63,73 @@ start_x,start_y=c_lst[0][0],c_lst[0][1]
 end_x,end_y=c_lst[1][0],c_lst[1][1]
 
 print(bfs(start_x,start_y))
+
+
+
+"""
+재채점 풀이
+
+import sys
+from collections import deque
+import heapq
+
+w,h= map(int, input().split())
+graph=[]
+c=[]
+for i in range(h):
+    graph.append(list(input().rstrip()))
+    for j in range(w):
+        if graph[i][j]=="C":
+            c.append([i,j])
+
+visited=[[sys.maxsize for _ in range(w)] for _ in range(h)]
+
+dx=[-1,1,0,0]
+dy=[0,0,-1,1]
+
+start=c[0]
+end=c[1]
+
+def dijkstra(x,y,mirror):
+    hq=[]
+    heapq.heappush(hq, [mirror, x,y])
+    visited[x][y]=0
+    count=0
+
+    while hq:
+        for _ in range(len(hq)):
+            mirror,x,y=heapq.heappop(hq)
+
+            if (x,y)==(end[0],end[1]):
+                return count-1
+            for i in range(4):
+                d=1
+                while 1:
+                    nx=x+dx[i]*d
+                    ny=y+dy[i]*d
+                    
+                    if not(0<=nx<h and 0<=ny<w):
+                        break
+                    if graph[nx][ny]=="*":
+                        break
+                    if visited[nx][ny]>mirror:
+                        visited[nx][ny]=mirror
+                        heapq.heappush(hq, [count,nx,ny])
+                    d+=1
+        count+=1
+
+print(dijkstra(start[0],start[1],0))
+
+
+"""
+
+"""
+확인해볼 반례
+4 5
+C..*
+...*
+...*
+*.**
+...C
+
+"""
