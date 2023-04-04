@@ -23,7 +23,7 @@ def bs(start, end, moeny):
         # total이 예산보다 크면
         if total>m:
             end=mid-1
-        # total이 예산보다 작거나 같으면
+        # total이 예산보다 작거나 같으면(이것이 중요함, 같다라는 조건이 빠지면, 예산이 같아도 end=mid-1이 실행되기 때문에 원하는 값보다 1작은 값이 나타날 수도 있음.)
         else:
             start=mid+1
     return end
