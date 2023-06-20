@@ -1,34 +1,32 @@
-#2606
-
 import sys
-from collections import deque
 input=sys.stdin.readline
-#컴퓨터 수
-computer=int(input())
-m=int(input())
+from collections import deque
 
-graph=[[] for _ in range(computer+1)]
-visited=[0]*(computer+1)
+def bfs(x):
+    q=deque()
+    q.append(x)
+    visited[x]=1
 
-for _ in range(m):
+    while q:
+        x=q.popleft()
+        for i in graph[x]:
+            if visited[i]==0:
+                q.append(i)
+                visited[i]=1
+
+
+
+n=int(input())
+v=int(input())
+
+graph=[[] for _ in range(n+1)]
+
+for _ in range(v):
     a,b=map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
+visited=[0]*(n+1)
 
-def bfs(v):
-    q=deque()
-    q.append(v)
-    visited[v]=1
-    cnt=0
-
-    while q:
-        v=q.popleft()
-        for i in graph[v]:
-            if visited[i]==0:
-                q.append(i)
-                visited[i]=1
-                cnt+=1
-
-    return cnt
-print(bfs(1))
+bfs(1)
+print(visited.count(1)-1)
