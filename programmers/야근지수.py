@@ -1,3 +1,5 @@
+# dic을 이용한 풀이
+
 def solution(n, works):
     answer = 0
 
@@ -35,3 +37,13 @@ def solution(n, works):
         answer += key * key * dics[key]
 
     return answer
+
+# heap을 이용한 풀이
+from heapq import heapify, heappush, heappop
+def solution(n, works):
+    heapify(works := [-i for i in works]) # 최대힙을 리스트를 만들고 힙으로 변경
+    for i in range(min(n, abs(sum(works)))):
+        heappush(works, heappop(works)+1)
+    return sum([i*i for i in works])
+
+print(solution(4, [4, 3, 3]))
