@@ -56,8 +56,6 @@ def solution(board):
     # 큐에는 오른쪽, 아래 방향으로 초기에 넣는다.
     q.append([0,0,0,1])
     q.append([0,0,0,3])# x, y, cost, direction
-    cost[1][0][1] = 100
-    cost[3][1][0] = 100
 
     while q:
         x,y,price,dir = q.popleft()
