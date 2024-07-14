@@ -50,3 +50,206 @@ def solution(info, query):
         answer.append(len(score) - end)
 
     return answer
+
+
+
+''' 과거 풀이'''
+
+def solution(info, query):
+    answer = []
+
+    language = {}
+    position = {}
+    career = {}
+    soul_food = {}
+    score = {}
+    for idx, val in enumerate(info):
+        tmp = val.split()
+
+        # 언어 등록
+        if language.get(tmp[0]) == None:  # 처음 등록
+            language[tmp[0]] = [idx]
+        else:
+            language[tmp[0]].append(idx)
+
+        # 포지션 등록
+        if position.get(tmp[1]) == None:  # 처음 등록
+            position[tmp[1]] = [idx]
+        else:
+            position[tmp[1]].append(idx)
+
+        # 경력 등록
+        if career.get(tmp[2]) == None:  # 처음 등록
+            career[tmp[2]] = [idx]
+        else:
+            career[tmp[2]].append(idx)
+
+        # 소울 푸드 등록
+        if soul_food.get(tmp[3]) == None:  # 처음 등록
+            soul_food[tmp[3]] = [idx]
+        else:
+            soul_food[tmp[3]].append(idx)
+
+        # 코테 점수 등록
+        score[idx] = tmp[4]
+
+    n = len(info)  # 지원자 수
+
+    for i in query:
+        condition = i.split()
+        # 모두를 후보로 등록한다.
+        candidate = {}
+        for num in range(n):
+            candidate[num] = ""
+
+        for j in range(8):
+            if j == 0:  # 언어
+                if condition[j] == "-":
+                    continue
+                else:
+                    for k in list(candidate.keys()):
+                        if k not in language[condition[j]]:
+                            del candidate[k]
+
+
+            elif j == 2:  # 직무
+                if condition[j] == "-":
+                    continue
+                else:
+                    for k in list(candidate.keys()):
+                        if k not in position[condition[j]]:
+                            del candidate[k]
+
+
+            elif j == 4:  # 경력
+                if condition[j] == "-":
+                    continue
+                else:
+                    for k in list(candidate.keys()):
+                        if k not in career[condition[j]]:
+                            del candidate[k]
+
+            elif j == 6:  # 소울 푸드
+                if condition[j] == "-":
+                    continue
+                else:
+                    for k in list(candidate.keys()):
+                        if k not in soul_food[condition[j]]:
+                            del candidate[k]
+
+            elif j == 7:  # 코테 점수
+                if condition[j] == "-":
+                    continue
+                else:
+                    for k in list(candidate.keys()):
+                        if int(score[k]) < int(condition[j]):
+                            del candidate[k]
+
+        answer.append(len(candidate))
+
+    return answer
+
+
+# 정확성 통과, 효율성 실패
+def solution(info, query):
+    answer = []
+
+    language = {}
+    position = {}
+    career = {}
+    soul_food = {}
+    score = {}
+    for idx, val in enumerate(info):
+        tmp = val.split()
+
+        # 언어 등록
+        if language.get(tmp[0]) == None:  # 처음 등록
+            language[tmp[0]] = [idx]
+        else:
+            language[tmp[0]].append(idx)
+
+        # 포지션 등록
+        if position.get(tmp[1]) == None:  # 처음 등록
+            position[tmp[1]] = [idx]
+        else:
+            position[tmp[1]].append(idx)
+
+        # 경력 등록
+        if career.get(tmp[2]) == None:  # 처음 등록
+            career[tmp[2]] = [idx]
+        else:
+            career[tmp[2]].append(idx)
+
+        # 소울 푸드 등록
+        if soul_food.get(tmp[3]) == None:  # 처음 등록
+            soul_food[tmp[3]] = [idx]
+        else:
+            soul_food[tmp[3]].append(idx)
+
+        # 코테 점수 등록
+        score[idx] = tmp[4]
+    # print(language)
+    # print(position)
+    # print(career)
+    # print(soul_food)
+    # print(score)
+
+    n = len(info)  # 지원자 수
+
+    for i in query:
+        candidate = [0] * n  # 인덱스: 후보 번호, 값: 조건에 True가 되는 횟수 즉, 5번다 만족하면 그 인원은 합격할 수 있는 지원자
+        condition = i.split()
+
+        for j in range(8):
+            if j == 0:  # 언어
+                if condition[j] == "-":
+                    for k in range(n):
+                        candidate[k] += 1
+                else:
+                    for k in language[condition[j]]:
+                        candidate[k] += 1
+
+            elif j == 2:  # 직무
+                if condition[j] == "-":
+                    for k in range(n):
+                        candidate[k] += 1
+                else:
+                    for k in position[condition[j]]:
+                        candidate[k] += 1
+
+
+            elif j == 4:  # 경력
+                if condition[j] == "-":
+                    for k in range(n):
+                        candidate[k] += 1
+                else:
+                    for k in career[condition[j]]:
+                        candidate[k] += 1
+
+
+            elif j == 6:  # 소울 푸드
+                if condition[j] == "-":
+                    for k in range(n):
+                        candidate[k] += 1
+                else:
+                    for k in soul_food[condition[j]]:
+                        candidate[k] += 1
+
+
+            elif j == 7:  # 코테 점수
+                if condition[j] == "-":
+                    for k in range(n):
+                        candidate[k] += 1
+                else:
+                    for k in score.keys():
+                        if int(score[k]) >= int(condition[j]):
+                            candidate[k] += 1
+        # print(candidate)
+
+        cnt = 0
+        for i in candidate:
+            if i == 5:
+                cnt += 1
+        answer.append(cnt)
+    return answer
+
